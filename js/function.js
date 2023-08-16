@@ -39,11 +39,5 @@ const extractNumber = (string) => {
 
 extractNumber('2023 год');
 
-const isLessOrEqual = (string, length) => {
-  if ((string, length <= length)) {
-    return true;
-  } else {
-    return false;
-  }
-};
+const isLessOrEqual = (string, length) => string.length <= length;
 isLessOrEqual('проверяемая строка', 20);
