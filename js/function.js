@@ -1,30 +1,31 @@
-//Функция для проверки длины строки.
 const myPadStar = (string, minLength, pad) => {
   const actualPad = minLength - string.length;
   if (actualPad < 0) {
     return string;
   }
-  return pad.slice(0, actualPad % pad.length) + pad.repeat(actualPad / pad.length) + string;
-}
+  return (
+    pad.slice(0, actualPad % pad.length) +
+    pad.repeat(actualPad / pad.length) +
+    string
+  );
+};
+myPadStar('1', 2, '0');
 
-//Это палиндром.
 const isPalindrom = (string) => {
-  const tempString
-  .toLowerCase()
-  .replaceAll(' ', '');
+  const tempString = string.toLowerCase().replaceAll(' ', '');
 
   let reverseSring = '';
-  for (i = tempString.length - 1; i >= 0; i--) {
+  for (let i = tempString.length - 1; i >= 0; i--) {
     reverseSring += tempString.at(i);
   }
   return tempString === reverseSring;
-
 };
+isPalindrom('Лёша на полке клопа нашёл ');
 
-/*Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9
-и возвращает их в виде целого положительного числа.*/
+// eslint-disable-next-line no-unused-vars
 const extractNumber = (string) => {
-  if (typeof string === number) => {
+  // eslint-disable-next-line no-undef
+  if (typeof string === number) {
     return string;
   }
   let result = '';
@@ -34,6 +35,15 @@ const extractNumber = (string) => {
     }
   }
   return parseInt(result, 10);
-}
+};
 
+extractNumber('2023 год');
 
+const isLessOrEqual = (string, length) => {
+  if ((string, length <= length)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+isLessOrEqual('проверяемая строка', 20);
