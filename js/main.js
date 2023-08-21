@@ -53,7 +53,7 @@ const createComment = () => (
 
 );
 
-const createPicture = (index) => ( {
+const createPicture = (index) => ({
 
   id: createIdGenerator(),
   url: `photos/${index}.jpg`,
