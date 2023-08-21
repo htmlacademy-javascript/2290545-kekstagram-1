@@ -53,19 +53,19 @@ const createComment = () => (
 
 );
 
-const createPicture = (index) => ({
-
-  id: createIdGenerator(),
-  url: `photos/${index}.jpg`,
-  description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
-  comments: Array.from({
-    length: getRandomInteger(0, COMMENT_COUNT)
-  },
-  createComment
-  ),
-});
-
+function createPicture(index) {
+  return ({
+    id: index,
+    url: `photos/${index}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
+    Comment: Array.from({
+      length: getRandomInteger(0, COMMENT_COUNT)
+    },
+    createComment
+    ),
+  });
+}
 
 const getPictures = () =>
   Array.from({ length: PICTURE_COUNT}, (_, pictureIndex) =>
