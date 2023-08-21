@@ -6,7 +6,7 @@ const COMMENT_COUNT = 20;
 const COMMENT_LINES = [
   'В России могут собрать рекордный урожай пшеницы.',
   'Убрана почти половина площадей. По данным Совэкон, средняя урожайность остается значительно выше',
-  'средней: 4,1 т/га против 3,8 т/га.юю',
+  'средней: 4,1 т/га против 3,8 т/га.',
 ];
 
 const DESCRIPTIONS = [
@@ -27,11 +27,11 @@ const getRandomInteger = (a, b) => {
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 const createIdGenerator = () => {
-  let lastGeneratedId = 0;
+  let lastId = 0;
 
   return () => {
-    lastGeneratedId += 1;
-    return lastGeneratedId;
+    lastId += 1;
+    return lastId;
   };
 };
 
@@ -53,19 +53,19 @@ const createComment = () => (
 
 );
 
-function createPicture(index) {
-  return ({
-    id: index,
-    url: `photos/${index}.jpg`,
-    description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
-    Comment: Array.from({
-      length: getRandomInteger(0, COMMENT_COUNT)
-    },
-    createComment
-    ),
-  });
-}
+const createPicture = (index) => ({
+
+  id: createIdGenerator(),
+  url: `photos/${index}.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
+  Comment: Array.from({
+    length: getRandomInteger(0, COMMENT_COUNT)
+  },
+  createComment
+  ),
+});
+
 
 const getPictures = () =>
   Array.from({ length: PICTURE_COUNT}, (_, pictureIndex) =>
