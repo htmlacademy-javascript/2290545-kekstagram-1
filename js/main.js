@@ -27,11 +27,11 @@ const getRandomInteger = (a, b) => {
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 const createIdGenerator = () => {
-  let lastGeneratedId = 0;
+  let lastId = 0;
 
   return () => {
-    lastGeneratedId += 1;
-    return lastGeneratedId;
+    lastId += 1;
+    return lastId;
   };
 };
 
