@@ -59,5 +59,5 @@ const getPictures = () =>
 
 export { getPictures };
 
-console.log('pictures:', getPictures());
+
 
