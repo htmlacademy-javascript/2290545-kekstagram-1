@@ -36,9 +36,11 @@ const createComment = () => (
 
 );
 
+const generatePictureId = createIdGenerator();
+
 const createPicture = (index) => ({
 
-  id: createIdGenerator(),
+  id: generatePictureId(),
   url: `photos/${index}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
