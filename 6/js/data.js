@@ -19,7 +19,7 @@ const DESCRIPTIONS = [
 
 const NAMES = ['Petya', 'Vasya', 'Keks', 'Anton', 'Kenny', 'Trump'];
 
-const generatedCommentId = createIdGenerator ();
+const generateCommentId = createIdGenerator ();
 
 const createMessage = () =>
   Array.from({ length: getRandomInteger(1, 2)}, () =>
@@ -28,7 +28,7 @@ const createMessage = () =>
 
 const createComment = () => (
   {
-    id: generatedCommentId(),
+    id: generateCommentId(),
     avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
     message: createMessage(),
     name: getRandomArrayElement(NAMES),
@@ -36,9 +36,11 @@ const createComment = () => (
 
 );
 
+const generatePictureId = createIdGenerator();
+
 const createPicture = (index) => ({
 
-  id: createIdGenerator(),
+  id: generatePictureId(),
   url: `photos/${index}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
@@ -55,7 +57,7 @@ const getPictures = () =>
     createPicture(pictureIndex + 1)
   );
 
-getPictures();
-
 export { getPictures };
+
+console.log('pictures:', getPictures());
 
