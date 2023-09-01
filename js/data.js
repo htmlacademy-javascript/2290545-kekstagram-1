@@ -58,6 +58,3 @@ const getPictures = () =>
   );
 
 export { getPictures };
-
-
-
