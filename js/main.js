@@ -1,6 +1,6 @@
 import { createThumbnails } from './thumbnails.js';
 import { getPictures } from './data.js';
 
-createThumbnails(getPictures);
+createThumbnails(getPictures());
 
 console.log('pictures:', getPictures());
