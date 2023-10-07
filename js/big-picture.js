@@ -81,7 +81,6 @@ function fillTemplate(photo) {
 
 function showBigPicture(photo) {
   bigPicture.classList.remove('hidden');
-  bigPicture.querySelector('.social__comment-count').classList.add('hidden');
   bigPicture.querySelector('.comments-loader').classList.add('hidden');
 
   document.body.classList.add('modal-open');
