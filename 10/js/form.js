@@ -49,18 +49,12 @@ const onImageSubmit = (evt) => {
 };
 
 const validateHashtag = (hashtag) => new RegExp('^#[а-яёa-z0-9]{1,19}$').test(hashtag);
+
 const hashtagsIsUnique = (hashTags) => {
-  for (const tag of hashTags) {
-    if (hashTags.reduce((acc, cur) => {
-      if (cur === tag) {
-        return ++acc;
-      }
-    }, 0) > 1) {
-      return false;
-    }
-  }
-  return true;
+  const uniqueTags = new Set(hashTags);
+  return uniqueTags.size === hashTags.length;
 };
+
 const validateHashtags = (value) => {
   const hashtags = value?.toLowerCase().split(' ').filter((tag) => tag !== '');
   return hashtags.length <= 5 && hashtagsIsUnique(hashtags) && hashtags.every(validateHashtag);
