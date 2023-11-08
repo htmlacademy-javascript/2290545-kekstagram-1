@@ -1,6 +1,8 @@
-import { isEscapeKey } from './util.js';
+import { onEscKeyDown,isEscapeKey } from './util.js';
 import {initScaler, resetScale} from './scaler.js';
 import { initEffects, resetEffects } from './effects.js';
+import { uploadPhoto } from './api.js';
+import { showErrorModal, showSuccessModal } from './modal.js';
 
 const uploadImageInput = document.querySelector('#upload-file');
 const uploadImageOverlay = document.querySelector('.img-upload__overlay');
@@ -8,6 +10,7 @@ const uploadImageForm = document.querySelector('#upload-select-image');
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
 const imageUploadPreview = document.querySelector('.img-upload__preview > img');
+const formSubmitButton = document.querySelector('#upload-submit');
 
 const pristine = new Pristine(uploadImageForm, {
   classTo: 'img-upload__field-wrapper',
@@ -20,17 +23,23 @@ const onImageLoadCloseClick = () => {
   closeImageLoadModal();
 };
 
-const onImageLoadEscKeyDown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeImageLoadModal();
-  }
-};
+const onImageLoadEscKeyDown = (evt) => onEscKeyDown(evt, closeImageLoadModal);
+
 
 const onInputKeyDown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();
   }
+};
+
+const blockSubmitButton = () => {
+  formSubmitButton.textContent = 'Отправка...';
+  formSubmitButton.disabled = true;
+};
+
+const unblockSubmitButton = () => {
+  formSubmitButton.textContent = 'Опубликовать';
+  formSubmitButton.disabled = false;
 };
 
 function closeImageLoadModal () {
@@ -45,8 +54,17 @@ function closeImageLoadModal () {
 const onImageSubmit = (evt) => {
   evt.preventDefault();
   if (pristine.validate()) {
-    uploadImageForm.submit();
-    closeImageLoadModal();
+    blockSubmitButton();
+    uploadPhoto(new FormData(evt.target))
+      .then(() => {
+        showSuccessModal();
+        closeImageLoadModal();
+      })
+      .catch(() => {
+        document.removeEventListener('keydown', onImageLoadEscKeyDown);
+        showErrorModal(onImageLoadEscKeyDown);
+      })
+      .finally(unblockSubmitButton);
   }
 };
 
@@ -93,5 +111,13 @@ const configureUploadImageForm = () => {
   initEffects();
 
 };
+
+function closeImageLoadModal () {
+  uploadImageForm.reset();
+  document.body.classList.remove('modal-open');
+  uploadImageOverlay.classList.add('hidden');
+
+  document.removeEventListener('keydown', onImageLoadEscKeyDown);
+}
 
 export { configureUploadImageForm };
