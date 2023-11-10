@@ -44,7 +44,6 @@ const unblockSubmitButton = () => {
 
 function closeImageLoadModal () {
   uploadImageForm.reset();
-
   document.body.classList.remove('modal-open');
   uploadImageOverlay.classList.add('hidden');
 
@@ -111,13 +110,5 @@ const configureUploadImageForm = () => {
   initEffects();
 
 };
-
-function closeImageLoadModal () {
-  uploadImageForm.reset();
-  document.body.classList.remove('modal-open');
-  uploadImageOverlay.classList.add('hidden');
-
-  document.removeEventListener('keydown', onImageLoadEscKeyDown);
-}
 
 export { configureUploadImageForm };

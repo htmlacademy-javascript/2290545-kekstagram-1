@@ -1,4 +1,4 @@
-import { onEscKeyDown } from './utils/misc.js';
+import { onEscKeyDown } from './util.js';
 
 const Modals = {
   success: getModalElement('success'),
