@@ -70,4 +70,22 @@ function throttle (callback, delayBetweenFrames) {
   };
 }
 
-export { debounce, throttle, getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, showAlert, onEscKeyDown };
+function createUniqueRandomIdGenerator(min, max) {
+  const usedIds = [];
+
+  function generateUniqueRandomId() {
+    let randomId;
+
+    do {
+      randomId = Math.floor(Math.random() * (max - min + 1)) + min;
+    } while (usedIds.includes(randomId));
+
+    usedIds.push(randomId);
+
+    return randomId;
+  }
+
+  return generateUniqueRandomId;
+}
+
+export { createUniqueRandomIdGenerator, debounce, throttle, getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, showAlert, onEscKeyDown };

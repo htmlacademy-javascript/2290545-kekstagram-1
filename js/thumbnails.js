@@ -15,23 +15,21 @@ const createThumbnail = (template,photo) => {
   const thumbnailElement = template.querySelector('.picture').cloneNode(true);
   thumbnailElement.querySelector('.picture__img').src = photo.url;
   thumbnailElement.querySelector('.picture__likes').textContent = photo.likes;
-  thumbnailElement.querySelector('.picture__comments').textContent =
-    photo.comments.length;
-  thumbnailElement.dataset.photoId = photo.id;
   return thumbnailElement;
 };
 
 const createThumbnails = (photoList) => {
   const fragment = document.createDocumentFragment();
   const templateContent = document.querySelector('#picture').content;
-  const onThumbnailClick = thumbnailClickHandlerGenerator(photos);
-
+  const onThumbnailClick = getThumbnailClickHandler();
   for (const photo of photoList) {
     const thumbnail = createThumbnail(templateContent, photo);
     thumbnail.addEventListener('click', onThumbnailClick);
     fragment.append(thumbnail);
   }
 
+  const picturesContainer = document.querySelector('.pictures');
+  picturesContainer.append(fragment);
 };
 
 const removeThumbnails = () => {
@@ -58,10 +56,15 @@ const showRandomPhotos = () => {
   createThumbnails(currentPhotos);
 };
 
-const toggleActiveFilter = (target) => {
-  filterButtons.forEach((btn) => btn.classList.remove('img-filters__button--active'));
-  target.classList.add('img-filters__button--active');
-};
+const toggleThumbnails = debounce((target) => {
+  if (target.id === 'filter-default') {
+    showDefaultPhotos();
+  } else if (target.id === 'filter-random') {
+    showRandomPhotos();
+  } else if (target.id === 'filter-discussed') {
+    showMostDiscussedPhotos();
+  }
+});
 
 const initThumbnails = (photoList) => {
   photos = photoList;
@@ -69,14 +72,14 @@ const initThumbnails = (photoList) => {
   picturesContainer.addEventListener('click', onThumbnailClick);
 
   document.querySelector('.img-filters').classList.remove('img-filters--inactive');
-  filterButtons.forEach((button) => {
-    button.addEventListener('click', (evt) => toggleActiveFilter(evt.target));
+
+  document.querySelector('.img-filters__form').addEventListener('click', (evt) => {
+    toggleActiveFilter(evt.target);
+    toggleThumbnails(evt.target);
   });
-  document.querySelector('#filter-default').addEventListener('click', debounce(showDefaultPhotos));
-  document.querySelector('#filter-random').addEventListener('click', debounce(showRandomPhotos));
-  document.querySelector('#filter-discussed').addEventListener('click', debounce(showMostDiscussedPhotos));
 
   showDefaultPhotos();
 };
+
 
 export { createThumbnails, initThumbnails };
