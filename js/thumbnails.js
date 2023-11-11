@@ -28,7 +28,6 @@ const createThumbnails = (photoList) => {
     fragment.append(thumbnail);
   }
 
-  const picturesContainer = document.querySelector('.pictures');
   picturesContainer.append(fragment);
 };
 
@@ -54,6 +53,11 @@ const showRandomPhotos = () => {
   }
   removeThumbnails();
   createThumbnails(currentPhotos);
+};
+
+const toggleActiveFilter = (target) => {
+  filterButtons.forEach((btn) => btn.classList.remove('img-filters__button--active'));
+  target.classList.add('img-filters__button--active');
 };
 
 const toggleThumbnails = debounce((target) => {
