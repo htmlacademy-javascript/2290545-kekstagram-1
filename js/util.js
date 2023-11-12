@@ -48,4 +48,44 @@ const onEscKeyDown = (evt, cb) => {
   }
 };
 
-export { getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, showAlert, onEscKeyDown };
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+function throttle (callback, delayBetweenFrames) {
+  let lastTime = 0;
+
+  return (...rest) => {
+    const now = new Date();
+
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+    }
+  };
+}
+
+function createUniqueRandomIdGenerator(min, max) {
+  const usedIds = [];
+
+  function generateUniqueRandomId() {
+    let randomId;
+
+    do {
+      randomId = Math.floor(Math.random() * (max - min + 1)) + min;
+    } while (usedIds.includes(randomId));
+
+    usedIds.push(randomId);
+
+    return randomId;
+  }
+
+  return generateUniqueRandomId;
+}
+
+export { createUniqueRandomIdGenerator, debounce, throttle, getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, showAlert, onEscKeyDown };
