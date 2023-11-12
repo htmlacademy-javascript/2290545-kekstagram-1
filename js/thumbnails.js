@@ -13,6 +13,7 @@ const getThumbnailClickHandler = () => (evt) => {
 
 const createThumbnail = (template,photo) => {
   const thumbnailElement = template.querySelector('.picture').cloneNode(true);
+  thumbnailElement.dataset.photoid = photo.id;
   thumbnailElement.querySelector('.picture__img').src = photo.url;
   thumbnailElement.querySelector('.picture__likes').textContent = photo.likes;
   return thumbnailElement;
@@ -72,8 +73,6 @@ const toggleThumbnails = debounce((target) => {
 
 const initThumbnails = (photoList) => {
   photos = photoList;
-  const onThumbnailClick = getThumbnailClickHandler();
-  picturesContainer.addEventListener('click', onThumbnailClick);
 
   document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 
