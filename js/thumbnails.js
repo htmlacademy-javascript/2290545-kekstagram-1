@@ -13,7 +13,7 @@ const getThumbnailClickHandler = () => (evt) => {
 
 const createThumbnail = (template,photo) => {
   const thumbnailElement = template.querySelector('.picture').cloneNode(true);
-  thumbnailElement.dataset.photoid = photo.id;
+  thumbnailElement.dataset.photoId = photo.id;
   thumbnailElement.querySelector('.picture__img').src = photo.url;
   thumbnailElement.querySelector('.picture__likes').textContent = photo.likes;
   return thumbnailElement;
