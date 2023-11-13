@@ -1,7 +1,7 @@
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const fileChooser = document.querySelector('.upload input[type=file]');
-const preview = document.querySelector('.setup-user-pic');
+const preview = document.querySelector('.social__picture');
 
 fileChooser.addEventListener('change', () => {
   const file = fileChooser.files[0];
