@@ -1,7 +1,7 @@
 import { Range } from './range.js';
 
 const imageUploadPreviewContainer = document.querySelector(
-  '.img-upload__preview'
+  '.img-upload__preview img'
 );
 const scaleElement = document.querySelector('.scale__control--value');
 const scaleIncrease = document.querySelector('.scale__control--bigger');
